@@ -62,5 +62,12 @@ SELECT Ranks.Score, Ranks.Rank FROM Scores LEFT JOIN
        FROM Scores a
        ORDER by Score DESC
 ```
-
+## My solution:
+```sql
+SELECT Ranks.Score, Ranks.Rank FROM Scores 
+LEFT JOIN (SELECT r.Score, @curRow := @curRow + 1 as `Rank` 
+FROM (SELECT DISTINCT Score , @curRow := 0 FROM Scores ORDER BY Score DESC) r) Ranks
+ON Scores.Score =  Ranks.Score
+ORDER BY Score DESC
+```
 [test link](https://leetcode.com/problems/rank-scores/)
