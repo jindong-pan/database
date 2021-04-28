@@ -22,7 +22,8 @@ For example, given the above Scores table, your query should generate the follow
 | 3.65  | 3       |
 | 3.50  | 4       |
 
-Important Note: For MySQL solutions, to escape reserved words used as column names, you can use an apostrophe before and after the keyword. For example `Rank`.
+**Important Note**: For MySQL solutions, to escape reserved words used as column names, you can use an apostrophe before and after the keyword. For example `Rank`.
+
 ## Solution 1:
 ```sql
 # Write your MySQL query statement below
@@ -61,5 +62,5 @@ SELECT Ranks.Score, Ranks.Rank FROM Scores LEFT JOIN
        FROM Scores a
        ORDER by Score DESC
 ```
-- Note: AS 'Rank' : Quote if it is keyword.
+
 [test link](https://leetcode.com/problems/rank-scores/)
