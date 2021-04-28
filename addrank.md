@@ -23,7 +23,7 @@ For example, given the above Scores table, your query should generate the follow
 | 3.50  | 4       |
 
 Important Note: For MySQL solutions, to escape reserved words used as column names, you can use an apostrophe before and after the keyword. For example `Rank`.
-
+## Solution 1:
 ```sql
 # Write your MySQL query statement below
 SELECT Score, FT2.Rank
@@ -35,4 +35,15 @@ FROM (SELECT DISTINCT Score AS SC FROM Scores ORDER BY Score DESC) AS UV
 ON FT1.Score = FT2.SCO
 ORDER BY Score DESC
 ```
+## Solution 2:
+```sql
+select c.score, d.ran as 'Rank' from (
+select a.score, ROW_NUMBER() OVER (ORDER BY a.score desc) AS ran from
+(select distinct score from Scores) as a ) as d
+inner join
+Scores as c
+on c.score = d.score
+order by ran asc
+```
+
 [test link](https://leetcode.com/problems/rank-scores/)
