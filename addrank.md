@@ -45,5 +45,20 @@ Scores as c
 on c.score = d.score
 order by ran asc
 ```
-
+## Solution 3:
+```sql
+SELECT Ranks.Score, Ranks.Rank FROM Scores LEFT JOIN 
+       ( SELECT r.Score, @curRow := @curRow + 1  Rank 
+            FROM (SELECT DISTINCT(Score), (SELECT @curRow := 0) 
+                      FROM Scores ORDER by Score DESC) r
+       ) Ranks 
+       ON Scores.Score = Ranks.Score
+       ORDER by Score DESC
+```
+## Solution 4:
+```sql
+ SELECT Score,  (SELECT COUNT(DISTINCT(Score)) FROM  Scores b WHERE b.Score > a.Score) + 1 AS Rank
+       FROM Scores a
+       ORDER by Score DESC
+```
 [test link](https://leetcode.com/problems/rank-scores/)
